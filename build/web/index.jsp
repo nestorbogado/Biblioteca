@@ -21,12 +21,14 @@
 
     <head>
         <meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Inicio | Sistema Biblioteca</title>
-
+    
+        
+        <title> Inicio | Sistema Biblioteca</title>
+        <link rel="shortcut icon" href="./imagen/ICONO.png" type="image/x-icon">
         <!-- Bootstrap Core CSS -->
         <link href="./vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -38,35 +40,56 @@
 
         <!-- Custom Fonts -->
         <link href="./vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="./css/select2.css" rel="stylesheet" type="text/css">
+        <link href="./css/sweetalert2.css" rel="stylesheet" type="text/css">
 
 
     </head>
 
     <body class="container">
-        <br><br><br><br>
+        <br><br>
         <div>
+            <center>
+        <img src="ArchivoReporte/isologo_uc.png" width="300" height="175" align="middle">
+    </center>
+            
             <div class="row">
                 <div class="col-md-4 col-xs-4 col-md-offset-4 col-xs-offset-4">
+                    <h4 class="text-center">Biblioteca "Dr. Jesús René Haurón Acuña"</h4>
+                    <br>
                     <div class="login-panel panel panel-default">
+                        
                         <div class="panel-heading">
-                            <h3 class="panel-title text-center">Iniciar Sesión</h3>
+                            <h3 class=" text-center">Bibliosoft</h3>
                         </div>
+                        
                         <div class="panel-body">
-                            <form  action="AccesoControlador" method="POST" >
+                            <form >
 
                                 <div class="form-group">
                                     <input class="form-control" placeholder="Usuario" name="usuario" id="usuario" type="text" autocomplete="off" autofocus>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Contraseña" name="contrasenha" type="password" autocomplete="off" >
+                                    <input class="form-control" placeholder="Contraseña" name="contrasenha" id="contrasenha" type="password" autocomplete="off" >
                                 </div>
-                                <button  type="submit" class='btn  btn-success btn-block' id='iniciarSesion'>ACCEDER</button>
+                                <button  type="button" class='btn  btn-success btn-block' id='iniciarSesion'>ACCEDER</button>
 
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
+            
+            <center>
+        <img src="ArchivoReporte/isologo_vector.png" width="300" height="95" align="middle">
+    </center>
+            
+            <a href="./acerca_de.jsp">
+                <p align="right">
+                    Acerca de
+                </p>
+                
+            </a>
         </div>
 
         <!-- jQuery -->
@@ -80,6 +103,9 @@
 
         <!-- Custom Theme JavaScript -->
         <script src="./dist/js/sb-admin-2.js"></script>
+        <script src="./js/select2.full.js"></script> 
+        <script src="./js/sweetalert2.min.js"></script> 
+        <script src="./consultas/Acceso.js"></script> 
     </body>
 
 </html>

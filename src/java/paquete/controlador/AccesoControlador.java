@@ -1,14 +1,15 @@
+
 package paquete.controlador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import paquete.dao.AccesoDAO;
+import paquete.modelo.Usuario;
 
 /**
  *
@@ -16,9 +17,7 @@ import paquete.dao.AccesoDAO;
  */
 public class AccesoControlador extends HttpServlet {
 
-    private AccesoDAO accesoDAO;
-    private static String INICIO = "/index.jsp";
-    private static String MENU = "/LIBROS.jsp";
+      private AccesoDAO accesoDAO;
 
     public AccesoControlador() {
         super();
@@ -29,20 +28,29 @@ public class AccesoControlador extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-
-            String forward = INICIO;
+            String accion = "";
+            accion = request.getParameter("accion");
 
             String usuario = request.getParameter("usuario");
             String contraseña = request.getParameter("contrasenha");
-            if (accesoDAO.autenticacion(usuario, contraseña)) {
-                HttpSession session_actual=request.getSession(true);
-            session_actual.setAttribute("usuario", usuario);
-                forward = MENU;
+            Usuario u = new Usuario();
+            if (accion.equalsIgnoreCase("insertar")) {
+//                String forward = INICIO;
+
+             
+                u = accesoDAO.autenticacion(usuario, contraseña);
+                if (u.getId_usuario() > 0) {
+                    HttpSession session_actual = request.getSession(true);
+                    session_actual.setMaxInactiveInterval(-1);
+                    session_actual.setAttribute("usuario", usuario);
+                    session_actual.setAttribute("nombre", u.getNombre());
+                    session_actual.setAttribute("id_usuario", u.getId_usuario());
+                    session_actual.setAttribute("tipo", u.getTipo_usuario());
+                    out.print(0);
+                } else {
+                    out.print(1);
+                }
             }
-
-            RequestDispatcher view = request.getRequestDispatcher(forward);
-            view.forward(request, response);
-
         }
     }
 

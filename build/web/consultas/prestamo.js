@@ -1,229 +1,374 @@
 $(document).ready(function () {
     //Selecciona los select de la pagina LIBROS.JSP en inicializa con la libreria select2.full.js
 ////
-//    $('#libros').select2();
-//    $('#alumnos').select2();
+    $('#material').select2();
+    $('#alumnos').select2();
+    $("#Elibros").select2();
+    $("#Ealumnos").select2();
+
+    $(document).on('click', '.AGREGAR', function () {
+
+        var now = new Date();
+
+        var day = ("0" + now.getDate()).slice(-2);
+        var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+        var today = now.getFullYear() + "-" + (month) + "-" + (day);
+        $("#fechaPrestamo").val(today);
+    });
+
+    (function cargar() {
+        $('#alumnos').load("PrestamoControlador", {accion: "cargarAlumnos"});
+        $('#material').load("PrestamoControlador", {accion: "cargarMaterial"});
+    })();
+
 
     $('#TablaPrestamos').DataTable({
+        columnDefs: [
+            {className: "dt-center", targets: "_all"}
+        ],
         ajax: {
             method: "POST",
-            url: "PrestamoControlador?accion=cargarTabla",
+            url: "PrestamoControlador?accion=cargarTablaPENDIENTE",
             dataSrc: "datos"
         },
         columns: [
             {data: "titulo"},
             {data: "alumno"},
             {data: "fecha_p"},
-            {data: "dias_prestado"},
             {data: "fecha_d"},
-            {data: "dias_reales"},
-            {data: "diferencia"},
-            {data: "multa"},
             {data: "editar"},
             {data: "eliminar"}
         ]
     });
 
-    (function () {
-        var fecha1 = moment('2018-11-10');
-        var fecha2 = moment('2018-11-09');
 
-        console.log(fecha2.diff(fecha1, 'days'), ' dias de diferencia');
-        cargarAlumnos();
-        cargarLibros();
-    })();
+    $("#accion").change(function () {
 
-    function cargarAlumnos() {
-        $.getJSON('PrestamoControlador', {accion: "cargarAlumnos"}, function (res) {
-            console.log(res);
-            var contenidoHTML = "<option value=''>Selecciona</option>";
-            for (var i = 0; i < res.length; i++) {
+        var accion = $('#accion').val();
+        if (accion == 1) {
+            //destruye la tabla
+            $("#TablaPrestamos").dataTable().fnDestroy();
 
-                contenidoHTML += "<option value=" + res[i].id_alumno + ">" + res[i].alumno + "</option>";
+            $('#TablaPrestamos').DataTable({
+                columnDefs: [
+                    {className: "dt-center", targets: "_all"}
+                ],
+                ajax: {
+                    method: "POST",
+                    url: "PrestamoControlador?accion=cargarTablaPENDIENTE",
+                    dataSrc: "datos"
+                },
+                columns: [
+                    {data: "titulo"},
+                    {data: "alumno"},
+                    {data: "fecha_p"},
+                    {data: "fecha_d"},
+                    {data: "editar"},
+                    {data: "eliminar"}
+                ]
+            });
+        }
+        if (accion == 2) {
+            //destruye la tabla
+            $("#TablaPrestamos").dataTable().fnDestroy();
 
-            }
-            //agrega el contendio html
-            $("#alumnos").html(contenidoHTML);
-        });
-    }
+            $('#TablaPrestamos').DataTable({
+                columnDefs: [
+                    {className: "dt-center", targets: "_all"}
+                ],
+                ajax: {
+                    method: "POST",
+                    url: "PrestamoControlador?accion=cargarTablaHECHAS",
+                    dataSrc: "datos"
+                },
+                columns: [
+                    {data: "titulo"},
+                    {data: "alumno"},
+                    {data: "fecha_p"},
+                    {data: "fecha_d"},
+                    {data: "editar"},
+                    {data: "eliminar"}
+                ]
+            });
+        }
+        if (accion == 3) {
+            //destruye la tabla
+            $("#TablaPrestamos").dataTable().fnDestroy();
 
-    function cargarLibros() {
-        $.getJSON('PrestamoControlador', {accion: "cargarLibros"}, function (res) {
-            console.log(res);
-            var contenidoHTML = "<option value=''>Selecciona</option>";
-            for (var i = 0; i < res.length; i++) {
+            $('#TablaPrestamos').DataTable({
+                columnDefs: [
+                    {className: "dt-center", targets: "_all"}
+                ],
+                ajax: {
+                    method: "POST",
+                    url: "PrestamoControlador?accion=cargarTablaTODOS",
+                    dataSrc: "datos"
+                },
+                columns: [
+                    {data: "titulo"},
+                    {data: "alumno"},
+                    {data: "fecha_p"},
+                    {data: "fecha_d"},
+                    {data: "editar"},
+                    {data: "eliminar"}
+                ]
+            });
+        }
 
-                contenidoHTML += "<option value=" + res[i].id_libro + ">" + res[i].libro + "</option>";
 
-            }
-            //agrega el contendio html
-            $("#libros").html(contenidoHTML);
-        });
-    }
+    });
 
 
     $("#agregarPrestamo").click(function () {
-        $.ajax({
-            type: "POST",
-            url: "PrestamoControlador",
-            data: {
+        if (validarFomularioAgregar()) {
+            $.ajax({
+                type: "POST",
+                url: "PrestamoControlador",
+                data: {
 
-                accion: "insertar",
-                // Estructura-> nombre de variable: valor de variable
-                //guarda en las variables los datos de los select y los inputs
-                libro: $("#libros").val(),
-                alumno: $("#alumnos").val(),
-                fechaPrestamo: $("#fechaPrestamo").val(),
-                cantidadDias: $("#cantidadDias").val()},
-            async: true,
-            cache: false,
-            success: function (resp) {
-                // en resp se guarda lo que el servlet retornó, en este caso retorna true o false
-                if (resp) {
-                    swal({
-                        position: 'center',
-                        type: 'success',
-                        title: 'Prestamo Agregado!',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                    //Vacia los inputs
-                    $("#cantidadDias").val("");
-                     $("#fechaPrestamo").val("");
-                    cargarAlumnos();
-                    cargarLibros();
-                } else {
-                    swal({
-                        position: 'center',
-                        type: 'error',
-                        title: 'No se pudo agregar!',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
+                    accion: "verificarFechaRenovacion",
+
+                    alumno: $("#alumnos").val(),
+                    fechaPrestamo: $("#fechaPrestamo").val()},
+                async: true,
+                cache: false,
+                success: function (resp) {
+                    if (resp == 1) {
+                        swal({
+                            position: 'center',
+                            type: 'warning',
+                            title: 'Debe Actualizar la fecha de renovación!',
+                            showConfirmButton: false,
+                            timer: 1800
+                        })
+                    } else {
+                        $.ajax({
+                            type: "POST",
+                            url: "PrestamoControlador",
+                            data: {
+
+                                accion: "insertar",
+                                // Estructura-> nombre de variable: valor de variable
+                                //guarda en las variables los datos de los select y los inputs
+                                libro: $("#material").val(),
+                                alumno: $("#alumnos").val(),
+                                fechaPrestamo: $("#fechaPrestamo").val()},
+                            async: true,
+                            cache: false,
+                            success: function (resp) {
+                                // en resp se guarda lo que el servlet retornó, en este caso retorna true o false
+                                if (resp == 1) {
+                                    swal({
+                                        position: 'center',
+                                        type: 'success',
+                                        title: 'Prestamo Agregado!',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                    $('#alumnos').load("PrestamoControlador", {accion: "cargarAlumnos"});
+                                    $('#material').load("PrestamoControlador", {accion: "cargarMaterial"});
+                                    //Recarga la tabla
+                                    $('#TablaPrestamos').DataTable().ajax.reload();
+                                } else {
+                                    swal({
+                                        position: 'center',
+                                        type: 'error',
+                                        title: 'No se pudo agregar!',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                }
+//
+//                console.log("Respuesta al agregar el libro " + resp);
+
+                            }
+
+                        });
+                    }
                 }
-
-                console.log("Respuesta al agregar el libro " + resp);
-
-                //Recarga la tabla
-                $('#TablaPrestamos').DataTable().ajax.reload();
-            }
-
-        });
-
+            });
+        }
     });
 
     $(document).on('click', '.eliminar', function () {
         var id = $(this).attr("value");
-        
-        var opcion = confirm("Está seguro que desea eliminar.?");
-        if (opcion == true) {
-            $.getJSON('PrestamoControlador', {accion: "eliminar", id: id}, function (res) {
-                if (res) {
-                    swal({
-                        position: 'center',
-                        type: 'success',
-                        title: 'Libro Eliminado!',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                } else {
-                    swal({
-                        position: 'center',
-                        type: 'error',
-                        title: 'No se pudo eliminar!',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                }
-                console.log(res);
-                //Recarga la tabla
-                $('#TablaPrestamos').DataTable().ajax.reload();
-            });
-        }
 
+        swal({
+            title: "Está seguro que desea eliminar ?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Si, Eliminar!",
+            cancelButtonText: "No, Cancelar",
+            closeOnConfirm: false
+        },
+                function () {
+                    $.getJSON('PrestamoControlador', {accion: "eliminar", id: id}, function (res) {
+                        if (res == 1) {
+                            swal({
+                                position: 'center',
+                                type: 'success',
+                                title: 'Libro Eliminado!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            //Recarga la tabla
+                            $('#material').load("PrestamoControlador", {accion: "cargarMaterial"});
+                            $('#TablaPrestamos').DataTable().ajax.reload();
+                        } else {
+                            swal({
+                                position: 'center',
+                                type: 'error',
+                                title: 'No se pudo eliminar!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        }
+//                        console.log(res);
+                        //Recarga la tabla
+                        $('#TablaPrestamos').DataTable().ajax.reload();
+                    });
+                });
     });
 
+
+//
     $(document).on('click', '.actualizar', function () {
         var id = $(this).attr("value");
         $("#actualizarDatos").val(id);
         $.getJSON('PrestamoControlador', {accion: "cargarDatos", id: id},
                 function (res) {
-                    $("#Elibros").val(res.titulo);
-                    $("#Ealumnos").val(res.alumno);
+                    $("#Elibros").html(res.material);
+                    $("#Ealumnos").html(res.alumno);
                     $("#EfechaPrestamo").val(res.fecha_p);
-                    $("#EcantidadDias").val(res.dias_prestado);
-                    $("#EfechaDevolucion").val(res.fecha_d);
-                    $("#EcantidadDiasReales").val(res.dias_reales);
-                    $("#Ediferencia").val(res.diferencia);
-                    $("#Emulta").val(res.multa);
                 });
-        $("#EfechaDevolucion").change(function () {
-            
-           var fecha = moment($('#EfechaPrestamo').val());
-           
-            var fecha1 = fecha;
-        var fecha2 = moment($('#EfechaDevolucion').val());
-         $("#EcantidadDiasReales").val(fecha2.diff(fecha1, 'days'));
-        console.log(fecha2.diff(fecha1, 'days'), ' dias de diferencia');
-        //Calculo de cantidades
-        var aux1= $("#EcantidadDiasReales").val();
-        var aux2=$("#EcantidadDias").val();
-        var aux3=(aux2-aux1);
-            if (aux3<0) {
-                swal({
-                        position: 'center',
-                        type: 'error',
-                        title: 'Dias Superados!',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-            }
-        $("#Ediferencia").val(aux3);
-        });
+
     });
-    
+//
     $("#actualizarDatos").click(function () {
+//        alert($("#EfechaPrestamo").val());
+        if (validarFomularioModificar()) {
+            $.ajax({
+                type: "POST",
+                url: "PrestamoControlador",
+                data: {
 
-        $.ajax({
-            type: "POST",
-            url: "PrestamoControlador",
-            data: {
-                accion: "actualizar",
-                id_prestamo: $("#actualizarDatos").val(),
-                fechaDevolucion: $("#EfechaDevolucion").val(),
-                cantidadDiasReales: $("#EcantidadDiasReales").val(),
-                diferencia: $("#Ediferencia").val(),
-                multa: $("#Emulta").val()},
-            async: true,
-            cache: false,
-            success: function (resp) {
-                // Si la longitud de resp es igual a 6 es verdadero
-                if (resp) {
-                    swal({
-                        position: 'center',
-                        type: 'success',
-                        title: 'Se han actualizado los datos!',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                } else {
-                    swal({
-                        position: 'center',
-                        type: 'error',
-                        title: 'No se pudo actualizar!',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
+                    accion: "verificarFechaRenovacion",
+
+                    alumno: $("#Ealumnos").val(),
+                    fechaPrestamo: $("#EfechaPrestamo").val()},
+                async: true,
+                cache: false,
+                success: function (resp) {
+                    if (resp == 1) {
+                        swal({
+                            position: 'center',
+                            type: 'warning',
+                            title: 'Debe Actualizar la fecha de renovación!',
+                            showConfirmButton: false,
+                            timer: 1800
+                        })
+                    } else {
+                        $.ajax({
+                            type: "POST",
+                            url: "PrestamoControlador",
+                            data: {
+                                accion: "actualizarPrestamo",
+                                id_prestamo: $("#actualizarDatos").val(),
+                                id_libro: $("#Elibros").val(),
+                                fechaPrestamo: $("#EfechaPrestamo").val()},
+                            async: true,
+                            cache: false,
+                            success: function (resp) {
+                                // Si la longitud de resp es igual a 6 es verdadero
+                                if (resp == 1) {
+                                    swal({
+                                        position: 'center',
+                                        type: 'success',
+                                        title: 'Se han actualizado los datos!',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                    $('#material').load("PrestamoControlador", {accion: "cargarMaterial"});
+                                    //Recarga la tabla
+                                    $('#TablaPrestamos').DataTable().ajax.reload();
+                                } else {
+                                    swal({
+                                        position: 'center',
+                                        type: 'error',
+                                        title: 'No se pudo actualizar!',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                }
+
+//                console.log("Respuesta al actualizar el libro " + resp);
+
+                            }
+
+                        });
+                    }
                 }
-
-                console.log("Respuesta al actualizar el libro " + resp);
-                
-                //Recarga la tabla
-                $('#TablaPrestamos').DataTable().ajax.reload();
-            }
-
-        });
-
+            });
+        }
     });
+
+    //VALIDACION 
+    function validarFomularioAgregar() {
+        if (($("#material").val().length > 0)) {
+            if (($("#alumnos").val().length > 0)) {
+                if (($("#fechaPrestamo").val().length > 0)) {
+                    return true;
+                } else {
+                    $("#fechaPrestamo").focus();
+                    swal({
+                        position: 'center',
+                        type: 'warning',
+                        title: 'Complete los campos requeridos!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    return false;
+                }
+            } else {
+                $("#alumnos").focus();
+                swal({
+                    position: 'center',
+                    type: 'warning',
+                    title: 'Complete los campos requeridos!',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                return false;
+            }
+        } else {
+            $("#material").focus();
+            swal({
+                position: 'center',
+                type: 'warning',
+                title: 'Complete los campos requeridos!',
+                showConfirmButton: false,
+                timer: 1500
+            })
+            return false;
+        }
+    }
+
+    function validarFomularioModificar() {
+        if (($("#EfechaPrestamo").val().length > 0)) {
+            return true;
+        } else {
+            $("#EfechaPrestamo").focus();
+            swal({
+                position: 'center',
+                type: 'warning',
+                title: 'Complete los campos requeridos!',
+                showConfirmButton: false,
+                timer: 1500
+            })
+            return false;
+        }
+    }
 });
 

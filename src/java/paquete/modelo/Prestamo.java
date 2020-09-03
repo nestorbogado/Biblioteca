@@ -8,11 +8,7 @@ public class Prestamo {
     private int id_libro;
     private int id_alumno;
     private String fecha_prestamo;
-    private int dias_prestados;
     private String fecha_devolucion;
-    private int dias_reales;
-    private int diferencia;
-    private String multa;
 
     public int getId_prestamo() {
         return id_prestamo;
@@ -45,45 +41,12 @@ public class Prestamo {
     public void setFecha_prestamo(String fecha_prestamo) {
         this.fecha_prestamo = fecha_prestamo;
     }
-
-    public int getDias_prestados() {
-        return dias_prestados;
-    }
-
-    public void setDias_prestados(int dias_prestados) {
-        this.dias_prestados = dias_prestados;
-    }
-
     public String getFecha_devolucion() {
         return fecha_devolucion;
     }
 
     public void setFecha_devolucion(String fecha_devolucion) {
         this.fecha_devolucion = fecha_devolucion;
-    }
-
-    public int getDias_reales() {
-        return dias_reales;
-    }
-
-    public void setDias_reales(int dias_reales) {
-        this.dias_reales = dias_reales;
-    }
-
-    public int getDiferencia() {
-        return diferencia;
-    }
-
-    public void setDiferencia(int diferencia) {
-        this.diferencia = diferencia;
-    }
-
-    public String getMulta() {
-        return multa;
-    }
-
-    public void setMulta(String multa) {
-        this.multa = multa;
     }
     
 }

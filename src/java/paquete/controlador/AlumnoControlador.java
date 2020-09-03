@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import paquete.dao.AlumnosDAO;
-import paquete.dao.CarreraDAO;
 import paquete.modelo.Alumno;
 
 /**
@@ -17,13 +16,11 @@ import paquete.modelo.Alumno;
  * @author USUARIO
  */
 public class AlumnoControlador extends HttpServlet {
-
+    
     private AlumnosDAO alumnoDAO;
-    private CarreraDAO carreraDAO;
     public AlumnoControlador() {
         super();
         alumnoDAO= new AlumnosDAO();
-        carreraDAO= new CarreraDAO();
     }
 
     
@@ -31,25 +28,32 @@ public class AlumnoControlador extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String accion="";
-            accion=request.getParameter("accion");
-            
+            String accion = "";
+            accion = request.getParameter("accion");
+
             if (accion.equalsIgnoreCase("cargarTabla")) {
                 JsonObject es = new JsonObject();
                 es.add("datos", alumnoDAO.listarTablaAlumnos());
                 out.print(es);
             }
             if (accion.equalsIgnoreCase("cargarCarrera")) {
-                
-                out.print(carreraDAO.listarCarrera());
+//                
+                out.print(alumnoDAO.listarCarrera(0));
+            }
+            if (accion.equalsIgnoreCase("cargarTipoDoc")) {
+                out.print(alumnoDAO.listarTipoDoc(0));
             }
             if (accion.equalsIgnoreCase("insertar")) {
-                Alumno a=new Alumno();
+                Alumno a = new Alumno();
                 a.setNombre(request.getParameter("nombre"));
                 a.setApellido(request.getParameter("apellido"));
+                a.setId_tipo_doc(Integer.valueOf(request.getParameter("tipo_doc")));
                 a.setCi(request.getParameter("ci"));
                 a.setId_carrera(Integer.valueOf(request.getParameter("carrera")));
-                out.print(alumnoDAO.agregarAlumno(a));
+                a.setTelefono(request.getParameter("telefono"));
+                a.setFecha_ingreso(request.getParameter("fechaIngreso"));
+                a.setFecha_renovacion(request.getParameter("fechaRenovacion"));
+                out.print(alumnoDAO.AgregarAlumno(a));
             }
             if (accion.equalsIgnoreCase("eliminar")) {
                 int id=Integer.valueOf(request.getParameter("id"));
@@ -61,11 +65,15 @@ public class AlumnoControlador extends HttpServlet {
             }
             if (accion.equalsIgnoreCase("actualizar")) {
                 Alumno a=new Alumno();
+                a.setId_alumno(Integer.valueOf(request.getParameter("id")));
                 a.setNombre(request.getParameter("nombre"));
                 a.setApellido(request.getParameter("apellido"));
+                a.setId_tipo_doc(Integer.valueOf(request.getParameter("tipo_doc")));
                 a.setCi(request.getParameter("ci"));
                 a.setId_carrera(Integer.valueOf(request.getParameter("carrera")));
-                a.setId_alumno(Integer.valueOf(request.getParameter("id")));
+                a.setTelefono(request.getParameter("telefono"));
+                a.setFecha_ingreso(request.getParameter("fechaIngreso"));
+                a.setFecha_renovacion(request.getParameter("fechaRenovacion"));
                 out.print(alumnoDAO.actualizarAlumno(a));
             }
         }

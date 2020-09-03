@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AlumnosAlfa" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6e0f1d8b-169c-4733-9072-91c0ed7e7699">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT * FROM materiales ORDER BY materiales.numero_entrada ASC]]>
+	</queryString>
+	<field name="id_material" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ISBN" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="titulo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="año_publicacion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="estado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="editoriales_id_editorial" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha_ingreso" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numeracion_dewey" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numero_entrada" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="titulo_grado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="autores" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipo_material_id_tipo_material" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="categoria" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ISSN" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="104">
+			<image>
+				<reportElement x="409" y="9" width="166" height="36" uuid="cd5e3ca8-4477-4e7b-b18b-6f8414a1f04d"/>
+				<imageExpression><![CDATA["C:\\Users\\AB\\Documents\\NetBeansProjects\\BIBLIOTECA\\web\\ArchivoReporte\\isologo_vector.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="10" y="0" width="113" height="79" uuid="a5c1a736-443c-4b2b-829e-25c30c18eb5d"/>
+				<imageExpression><![CDATA["C:\\Users\\AB\\Documents\\NetBeansProjects\\BIBLIOTECA\\web\\ArchivoReporte\\isologo_uc.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement mode="Opaque" x="10" y="70" width="113" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="315dabb2-9f0f-42ac-81da-b5b1fc72df54"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Campus Itapúa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="140" y="9" width="269" height="22" forecolor="#000000" backcolor="#FFFFFF" uuid="96c45f58-4e68-4acf-bed5-10e28a96f10a"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Biblioteca "Dr. Jesús René Haurón Acuña"]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="168" y="45" width="221" height="34" forecolor="#000000" backcolor="#FFFFFF" uuid="f7c876d6-f659-4800-8602-9ff426f69eee"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de Libros]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="168" y="74" width="221" height="22" forecolor="#000000" backcolor="#FFFFFF" uuid="b558a4f6-23b1-44e8-b2ac-04bc74ee46ef"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Ordenados Alfabéticamente]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="101" width="555" height="1" uuid="d5420c90-1b7d-4aa4-ab3b-d403ab1f3281"/>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band/>
+	</pageHeader>
+	<columnHeader>
+		<band height="23">
+			<line>
+				<reportElement x="0" y="22" width="555" height="1" forecolor="#000000" uuid="3cd7db76-aba0-4ab8-a843-e2744bf77c55"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="206" y="0" width="113" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="1cfbbe88-597a-4c89-b3aa-04604d11c66b"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Título]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2" y="1" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="feb3c25a-c50e-42ff-9d05-0f2b6f187b41"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código de Entrada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="451" y="1" width="100" height="20" uuid="77c3f934-d9eb-482c-bc01-4f2a8800bd7f"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="103" y="0" width="100" height="20" uuid="f510ac82-086d-4b96-aeb8-b49a6cee8735"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dewey]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22">
+			<textField>
+				<reportElement x="200" y="1" width="250" height="20" uuid="235da990-468d-4e63-a4fe-99aeb433d130"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{titulo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="452" y="1" width="100" height="20" uuid="7b409bd9-d0c1-46ad-ac0b-74ed0ceac7e0"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="104" y="1" width="90" height="20" uuid="feb08f0d-194e-479a-95b5-49276d675d0d"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numeracion_dewey}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3" y="1" width="90" height="20" uuid="89f89776-9a27-470f-895c-70a243630b3d"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numero_entrada}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="a25c69e9-5543-412b-abea-e5d60d8d52c2"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" uuid="76874bf3-107c-487c-9356-82ed3415affc"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

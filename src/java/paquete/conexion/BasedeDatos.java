@@ -13,7 +13,7 @@ public class BasedeDatos {
                     "root", "");
             return con;
         } catch (Exception ex) {
-            System.out.println("Database.getConnection() Error -->" + ex.getMessage());
+            System.out.println("Database.getConnection() Error -->" + ex.getMessage()+ "ERRORR");
             return null;
         }
     }

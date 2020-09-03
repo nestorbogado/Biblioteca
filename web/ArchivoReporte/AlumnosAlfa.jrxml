@@ -1,79 +1,141 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AlumnosAlfa" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6e0f1d8b-169c-4733-9072-91c0ed7e7699">
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
-	<queryString language="SQL">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="530"/>
+	<property name="ireport.y" value="48"/>
+	<queryString>
 		<![CDATA[SELECT * FROM alumnos ORDER BY apellido_alumno ASC, nombre_alumno ASC]]>
 	</queryString>
-	<field name="apellido_alumno" class="java.lang.String">
+	<field name="id_alumno" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cedula" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="nombre_alumno" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="apellido_alumno" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="telefono_alumno" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha_ingreso_alumno" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha_renovacion_alumno" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CARRERAS_id_carrera" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipo_documento_id_tipo_documento" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<background>
 		<band/>
 	</background>
 	<title>
-		<band height="72">
-			<frame>
-				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699" uuid="15b62c40-f421-4dcd-a770-f3d110b85a47"/>
-				<staticText>
-					<reportElement x="20" y="20" width="234" height="43" forecolor="#FFFFFF" uuid="ab7c53d7-83d7-4e0c-9d7c-a067fda6b071"/>
-					<textElement>
-						<font isBold="true"/>
-					</textElement>
-					<text><![CDATA[Alumnos]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="395" y="43" width="180" height="20" forecolor="#FFFFFF" uuid="13fd69d2-78a0-40ce-bfaf-9d9b838e75a2"/>
-					<textElement textAlignment="Right">
-						<font isBold="false"/>
-					</textElement>
-					<text><![CDATA[Ordenada Alfabeticamente  ]]></text>
-				</staticText>
-			</frame>
+		<band height="104">
+			<image>
+				<reportElement x="409" y="9" width="166" height="36" uuid="cd5e3ca8-4477-4e7b-b18b-6f8414a1f04d"/>
+				<imageExpression><![CDATA["C:\\Users\\AB\\Documents\\NetBeansProjects\\BIBLIOTECA\\web\\ArchivoReporte\\isologo_vector.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="10" y="0" width="113" height="79" uuid="a5c1a736-443c-4b2b-829e-25c30c18eb5d"/>
+				<imageExpression><![CDATA["C:\\Users\\AB\\Documents\\NetBeansProjects\\BIBLIOTECA\\web\\ArchivoReporte\\isologo_uc.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement mode="Opaque" x="10" y="70" width="113" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="315dabb2-9f0f-42ac-81da-b5b1fc72df54"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Campus Itapúa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="140" y="9" width="269" height="22" forecolor="#000000" backcolor="#FFFFFF" uuid="96c45f58-4e68-4acf-bed5-10e28a96f10a"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Biblioteca "Dr. Jesús René Haurón Acuña"]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="168" y="45" width="221" height="34" forecolor="#000000" backcolor="#FFFFFF" uuid="f7c876d6-f659-4800-8602-9ff426f69eee"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de Alumnos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="168" y="74" width="221" height="22" forecolor="#000000" backcolor="#FFFFFF" uuid="b558a4f6-23b1-44e8-b2ac-04bc74ee46ef"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Ordenados Alfabéticamente]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="101" width="555" height="1" uuid="d5420c90-1b7d-4aa4-ab3b-d403ab1f3281"/>
+			</line>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="13"/>
+		<band/>
 	</pageHeader>
 	<columnHeader>
-		<band height="21">
+		<band height="23">
 			<line>
-				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="3cd7db76-aba0-4ab8-a843-e2744bf77c55"/>
+				<reportElement x="0" y="22" width="555" height="1" forecolor="#000000" uuid="3cd7db76-aba0-4ab8-a843-e2744bf77c55"/>
 			</line>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="0" width="277" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="1cfbbe88-597a-4c89-b3aa-04604d11c66b"/>
-				<textElement textAlignment="Center">
-					<font isBold="true"/>
+				<reportElement mode="Opaque" x="109" y="0" width="113" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="1cfbbe88-597a-4c89-b3aa-04604d11c66b"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Apellido]]></text>
+				<text><![CDATA[Apellido y Nombre]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="277" y="0" width="277" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="73f0d516-1268-4203-95da-547f89a190c4"/>
-				<textElement textAlignment="Center">
-					<font isBold="true"/>
+				<reportElement mode="Opaque" x="2" y="1" width="85" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="feb3c25a-c50e-42ff-9d05-0f2b6f187b41"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Nombre]]></text>
+				<text><![CDATA[Nro de Identidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="441" y="1" width="100" height="20" uuid="77c3f934-d9eb-482c-bc01-4f2a8800bd7f"/>
+				<text><![CDATA[Nro de Teléfono]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="20">
-			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="33220d54-18a3-48e6-a027-c75e7ef960ec"/>
-			</line>
+		<band height="17">
 			<textField isStretchWithOverflow="true">
-				<reportElement x="0" y="0" width="277" height="20" uuid="3bea9dab-0022-45f6-af10-8ac08dc3c4dc"/>
-				<textElement textAlignment="Center"/>
+				<reportElement x="107" y="0" width="165" height="17" uuid="3bea9dab-0022-45f6-af10-8ac08dc3c4dc"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="false"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{apellido_alumno}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="277" y="0" width="277" height="20" uuid="c188cd57-8e63-4df0-96c5-695460dcf7eb"/>
-				<textElement textAlignment="Center"/>
+				<reportElement x="272" y="0" width="168" height="17" uuid="c188cd57-8e63-4df0-96c5-695460dcf7eb"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="false"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{nombre_alumno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="5" y="0" width="100" height="17" uuid="53807e6e-b23e-4b90-80f5-42a5b11103c7"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cedula}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="440" y="0" width="100" height="17" uuid="e15d95dd-747b-4d66-ae16-b5da054ffc42"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{telefono_alumno}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -81,12 +143,7 @@
 		<band/>
 	</columnFooter>
 	<pageFooter>
-		<band height="17">
-			<textField>
-				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="d307b336-1d5a-4cc3-8562-48a2a83a9c57"/>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
-			</textField>
+		<band height="18">
 			<textField evaluationTime="Report">
 				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="a25c69e9-5543-412b-abea-e5d60d8d52c2"/>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>

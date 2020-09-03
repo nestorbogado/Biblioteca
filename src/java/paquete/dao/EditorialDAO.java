@@ -9,7 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import paquete.conexion.BasedeDatos;
-import paquete.modelo.Libro;
 
 /**
  *
@@ -22,50 +21,50 @@ public class EditorialDAO {
         connection = BasedeDatos.getConnection();
     }
     
-      public boolean agregarEditorial(String editorial) {
+      public int agregarEditorial(String editorial) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO editoriales(nombre_editorial) VALUES (?)");
 
             preparedStatement.setString(1, editorial);
 
             if (preparedStatement.executeUpdate() > 0) {
-                return true;
+                return 1;
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return 0;
     }
       
-    public boolean eliminarEditorial(int id) {
+    public int eliminarEditorial(int id) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM editoriales WHERE id_editorial=?");
 
             preparedStatement.setInt(1, id);
             if (preparedStatement.executeUpdate() > 0) {
-                return true;
+                return 1;
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return 0;
     }
-    public boolean actualizarEditorial(int id, String editorial) {
+    public int actualizarEditorial(int id, String editorial) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE editoriales SET nombre_editorial=? WHERE id_editorial=?");
             // Parametros  empiezan en  1
             preparedStatement.setString(1, editorial);
             preparedStatement.setInt(2, id);
             if (preparedStatement.executeUpdate() > 0) {
-                return true;
+                return 1;
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return 0;
     }
     
      public JsonArray listarTablaEditoriales() {
@@ -82,8 +81,8 @@ public class EditorialDAO {
                 //Ejemplo nombredelobjeto.addProperty("nombre con el que se guardará los datos", rs.getString("nombre de la columna de la base de datos"));
                 c.addProperty("id_editorial", rs.getInt("id_editorial"));
                 c.addProperty("nombre_editorial", rs.getString("nombre_editorial"));
-                c.addProperty("editar", "<td><button href='#!' value='" + rs.getInt("id_editorial") + "' class='btn btn-success actualizar' data-toggle='modal' data-target='#editar' data-backdrop='static' data-keyboard='false'><i class='glyphicon glyphicon-edit'></i></button></td>");
-                c.addProperty("eliminar", "<td><button href='#!' value='" + rs.getInt("id_editorial") + "' class='btn btn-danger eliminar'><i class='glyphicon glyphicon-remove'></i></button></td>");
+                c.addProperty("editar", "<td><button title='Editar' href='#!' value='" + rs.getInt("id_editorial") + "' class='btn btn-success actualizar' data-toggle='modal' data-target='#editar' data-backdrop='static' data-keyboard='false'><i class='glyphicon glyphicon-edit'></i></button></td>");
+                c.addProperty("eliminar", "<td><button  title='Eliminar' href='#!' value='" + rs.getInt("id_editorial") + "' class='btn btn-danger eliminar'><i class='glyphicon glyphicon-remove'></i></button></td>");
                 
                 //Agrega el objeto a la variable lista
                 editoriales.add(c);
@@ -115,23 +114,5 @@ public class EditorialDAO {
         return c;
     }
     
-    public JsonArray listarEditorial() {
-
-        JsonArray editorial = new JsonArray();
-        try {
-            Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM editoriales");
-            while (rs.next()) {
-                JsonObject c = new JsonObject();
-
-                c.addProperty("id_editorial", rs.getString("id_editorial"));
-                c.addProperty("nombre_editorial", rs.getString("nombre_editorial"));
-                editorial.add(c);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return editorial;
-    }
+    
 }

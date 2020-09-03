@@ -1,4 +1,3 @@
-
 package paquete.dao;
 
 import com.google.gson.JsonArray;
@@ -10,63 +9,64 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import paquete.conexion.BasedeDatos;
 
-
 public class GeneroDAO {
 
     private Connection connection;
+
     public GeneroDAO() {
+        
         connection = BasedeDatos.getConnection();
     }
-    
-     public boolean agregarGenero(String genero) {
+
+    public int agregarGenero(String genero) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO generos(nombre_genero) VALUES (?)");
 
             preparedStatement.setString(1, genero);
 
             if (preparedStatement.executeUpdate() > 0) {
-                return true;
+                return 1;
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return 0;
     }
-    
-     public boolean eliminarGenero(int id) {
+
+    public int eliminarGenero(int id) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM generos WHERE id_genero=?");
 
             preparedStatement.setInt(1, id);
             if (preparedStatement.executeUpdate() > 0) {
-                return true;
+                return 1;
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return 0;
     }
-     
-     public boolean actualizarGenero(int id, String genero) {
+
+    public int actualizarGenero(int id, String genero) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE generos SET nombre_genero=? WHERE id_genero=?");
             // Parametros  empiezan en  1
             preparedStatement.setString(1, genero);
             preparedStatement.setInt(2, id);
             if (preparedStatement.executeUpdate() > 0) {
-                return true;
+                return 1;
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return 0;
     }
-     
-     public JsonArray listarTablaGeneros() {
-   
+
+    public JsonArray listarTablaGeneros() {
+
         JsonArray generos = new JsonArray();
         try {
             //Ejecuta la sentencia SQL
@@ -79,9 +79,9 @@ public class GeneroDAO {
                 //Ejemplo nombredelobjeto.addProperty("nombre con el que se guardará los datos", rs.getString("nombre de la columna de la base de datos"));
                 c.addProperty("id_genero", rs.getInt("id_genero"));
                 c.addProperty("nombre_genero", rs.getString("nombre_genero"));
-                c.addProperty("editar", "<td><button href='#!' value='" + rs.getInt("id_genero") + "' class='btn btn-success actualizar' data-toggle='modal' data-target='#editar' data-backdrop='static' data-keyboard='false'><i class='glyphicon glyphicon-edit'></i></button></td>");
-                c.addProperty("eliminar", "<td><button href='#!' value='" + rs.getInt("id_genero") + "' class='btn btn-danger eliminar'><i class='glyphicon glyphicon-remove'></i></button></td>");
-                
+                c.addProperty("editar", "<td><button title='Editar' href='#!' value='" + rs.getInt("id_genero") + "' class='btn btn-success actualizarG' data-toggle='modal' data-target='#editar' data-backdrop='static' data-keyboard='false'><i class='glyphicon glyphicon-edit'></i></button></td>");
+                c.addProperty("eliminar", "<td><button title='Eliminar' href='#!' value='" + rs.getInt("id_genero") + "' class='btn btn-danger eliminar'><i class='glyphicon glyphicon-remove'></i></button></td>");
+
                 //Agrega el objeto a la variable lista
                 generos.add(c);
             }
@@ -91,46 +91,30 @@ public class GeneroDAO {
         // Retorna la lista
         return generos;
     }
-     
-     public JsonObject cargarDatosGeneros(int id) {
+    
+    public JsonObject cargarDatosGeneros(int id) {
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
         //  Crea la variable de tipo Objeto
         JsonObject c = new JsonObject();
         try {
 
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM generos WHERE id_genero=?");
+            preparedStatement = connection.prepareStatement("SELECT * FROM generos WHERE id_genero=?");
             preparedStatement.setInt(1, id);
-            ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()) {
+            rs = preparedStatement.executeQuery();
+            if (rs.absolute(1)) {
                 //Agrega las propiedades al objeto
-//                 c.addProperty("id_editorial", rs.getString("id_editorial"));
+                //Ejemplo nombredelobjeto.addProperty("nombre con el que se guardará los datos", rs.getString("nombre de la columna de la base de datos"));
+                c.addProperty("id_genero", rs.getString("id_genero"));
                 c.addProperty("nombre_genero", rs.getString("nombre_genero"));
-
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e);
         }
         // retorna el objeto
         return c;
     }
-    
-    public JsonArray listarGenero() {
 
-        JsonArray genero = new JsonArray();
-        try {
-            Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM generos");
-            while (rs.next()) {
-                JsonObject c = new JsonObject();
 
-                c.addProperty("id_genero", rs.getString("id_genero"));
-                c.addProperty("nombre_genero", rs.getString("nombre_genero"));
-                genero.add(c);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
-        return genero;
-    }
-    
 }

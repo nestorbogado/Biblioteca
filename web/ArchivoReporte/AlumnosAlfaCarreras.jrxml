@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AlumnosAlfa" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6e0f1d8b-169c-4733-9072-91c0ed7e7699">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="12"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT carreras.nombre_carrera, alumnos.apellido_alumno, alumnos.nombre_alumno, alumnos.telefono_alumno, alumnos.cedula FROM alumnos, carreras WHERE alumnos.CARRERAS_id_carrera=carreras.id_carrera ORDER BY carreras.id_carrera]]>
+	</queryString>
+	<field name="nombre_carrera" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="apellido_alumno" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombre_alumno" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="telefono_alumno" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cedula" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="104">
+			<image>
+				<reportElement x="409" y="9" width="166" height="36" uuid="cd5e3ca8-4477-4e7b-b18b-6f8414a1f04d"/>
+				<imageExpression><![CDATA["C:\\Users\\AB\\Documents\\NetBeansProjects\\BIBLIOTECA\\web\\ArchivoReporte\\isologo_vector.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="10" y="0" width="113" height="79" uuid="a5c1a736-443c-4b2b-829e-25c30c18eb5d"/>
+				<imageExpression><![CDATA["C:\\Users\\AB\\Documents\\NetBeansProjects\\BIBLIOTECA\\web\\ArchivoReporte\\isologo_uc.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement mode="Opaque" x="10" y="70" width="113" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="315dabb2-9f0f-42ac-81da-b5b1fc72df54"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Campus Itapúa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="140" y="9" width="269" height="22" forecolor="#000000" backcolor="#FFFFFF" uuid="96c45f58-4e68-4acf-bed5-10e28a96f10a"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Biblioteca "Dr. Jesús René Haurón Acuña"]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="168" y="45" width="221" height="34" forecolor="#000000" backcolor="#FFFFFF" uuid="f7c876d6-f659-4800-8602-9ff426f69eee"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de Alumnos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="168" y="75" width="221" height="22" forecolor="#000000" backcolor="#FFFFFF" uuid="b558a4f6-23b1-44e8-b2ac-04bc74ee46ef"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Por Carrera, Ordenados Alfabeticamente]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="101" width="555" height="1" uuid="d5420c90-1b7d-4aa4-ab3b-d403ab1f3281"/>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band/>
+	</pageHeader>
+	<columnHeader>
+		<band height="24">
+			<line>
+				<reportElement x="0" y="22" width="555" height="1" forecolor="#000000" uuid="3cd7db76-aba0-4ab8-a843-e2744bf77c55"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="10" y="0" width="140" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="1cfbbe88-597a-4c89-b3aa-04604d11c66b"/>
+				<textElement>
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Carrera]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="251" y="0" width="150" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="765fced0-ea00-43b0-8841-552d6030f677"/>
+				<textElement>
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Apellido y Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="0" width="100" height="20" uuid="0a6f2173-b553-4c9e-9495-af347e7a1657"/>
+				<textElement>
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nro de Identidad]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="233" y="0" width="157" height="17" uuid="3bea9dab-0022-45f6-af10-8ac08dc3c4dc"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{apellido_alumno}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="390" y="0" width="165" height="17" uuid="c188cd57-8e63-4df0-96c5-695460dcf7eb"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre_alumno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="150" height="18" uuid="cf122579-4421-46fd-b270-353bc09448bd"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre_carrera}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="151" y="0" width="80" height="18" uuid="f64b7354-dec0-4f9e-80ad-44060164cda2"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cedula}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="18">
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="a25c69e9-5543-412b-abea-e5d60d8d52c2"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" uuid="76874bf3-107c-487c-9356-82ed3415affc"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

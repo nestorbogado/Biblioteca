@@ -15,8 +15,6 @@ if(n == null)
     response.sendRedirect("index.jsp");
     
     }else{
-    
-
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -26,13 +24,13 @@ if(n == null)
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>AUTORES</title>
-
+        <title>GENEROS</title>
+        <link rel="shortcut icon" href="./imagen/ICONO.png" type="image/x-icon">
         <!-- Bootstrap Core CSS -->
         <link href="./vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
         <!-- MetisMenu CSS -->
-        <link href="./vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+        <link href="./vendor/metisMenu/metisMenu.min.css" rel="stylesheet"> 
 
         <!-- DataTables CSS -->
         <link href="./vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
@@ -41,7 +39,7 @@ if(n == null)
         <link href="./vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
 
         <!-- Custom CSS -->
-        <link href="./dist/css/sb-admin-2.css" rel="stylesheet">
+        <link href="./css/sb-admin-2.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
         <link href="./vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -52,44 +50,8 @@ if(n == null)
     <body>
         <div id="container"> 
 
-            <!-- Navigation -->
-            <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-                    <a class="navbar-brand" href="index.html">Biblioteca</a> </div>
-                <!-- /.navbar-header -->
-
-                <ul class="nav navbar-top-links navbar-right">
-                    <!-- /.dropdown -->
-                    <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i> </a>
-                        <ul class="dropdown-menu dropdown-user">
-                             <li><a href="index.jsp"><i class="fa fa-sign-out fa-fw"></i> SALIR</a> </li>
-                        </ul>
-                        <!-- /.dropdown-user --> 
-                    </li>
-                    <!-- /.dropdown -->
-                </ul>
-                <!-- /.navbar-top-links -->
-
-                <div class="navbar-default sidebar" role="navigation">
-                    <div class="sidebar-nav navbar-collapse">
-                        <ul class="nav" id="side-menu">
-                            <li> <a href="LIBROS.jsp"><i class="fa fa-book"></i> Libros</a> </li>
-                            <li> <a href="PRESTAMO.jsp"><i class="fa fa-book"></i> Prestamos</a> </li>
-                            <li> <a href="EDITORIAL.jsp"><i class="fa fa-book"></i> Editoriales</a> </li>
-                            <li> <a href="AUTOR.jsp"><i class="fa fa-book"></i> Autores</a> </li>
-                            <li> <a href="GENERO.jsp"><i class="fa fa-book"></i> Generos</a> </li>
-                            <li> <a href="CARRERA.jsp"><i class="fa fa-book"></i> Carreras</a> </li>
-                            <li> <a href="ALUMNO.jsp"><i class="fa fa-book"></i> Alumnos</a> </li>
-                            <li> <a href="REPORTES.jsp"><i class="fa fa-book"></i>Reportes</a> </li>
-                            
-                            <li> <a href="CATEGORIA.jsp"><i class="fa fa-book"></i>Categoria</a> </li>
-                        </ul>
-                    </div>
-                    <!-- /.sidebar-collapse --> 
-                </div>
-                <!-- /.navbar-static-side --> 
-            </nav>
+            <%@include file="BARRANAV.jsp" %>
+            
             <div id="page-wrapper">
                 <div class="row">
                     <div class="col-lg-12 text-center">
@@ -116,10 +78,6 @@ if(n == null)
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    <td>1</td>
-                                    <td>ASDAS</td>
-                                    <td><button class="btn btn-success" data-toggle="modal" data-target="#editar" data-backdrop="static" data-keyboard="false"><i class="glyphicon glyphicon-edit" ></i></button></td>
-                                    <td><button class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i></button></td>
                                     </tbody>
                                 </table>
                             </div>
@@ -149,8 +107,8 @@ if(n == null)
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="form-group col-sm-12">
-                                    <label>Nombre:</label>
-                                    <input class="form-control" type="text"  id="nombre">
+                                    <label>DESCRIPCIÓN </label><span class = "rojo"> * </span>
+                                    <input class="form-control LETRAS MAYUSCULAS" type="text"  id="nombreG" maxlength="45" autocomplete="off">
                                 </div>
                             </div>
                         </div>
@@ -177,15 +135,15 @@ if(n == null)
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="form-group col-sm-12">
-                                    <label>Nombre</label>
-                                    <input class="form-control" type="text" id="Enombre">
+                                    <label>DESCRIPCIÓN </label><span class = "rojo"> * </span>
+                                    <input class="form-control LETRAS MAYUSCULAS" type="text" id="EnombreG" maxlength="45" autocomplete="off">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary" id="actualizarDatos" >Guardar Datos</button>
+                        <button type="button" class="btn btn-primary" id="actualizarDatosGenero" >Guardar Datos</button>
                     </div>
                 </div>
             </div>
@@ -207,11 +165,10 @@ if(n == null)
         <script src="./js/select2.full.js"></script> 
         <script src="./js/sweetalert2.min.js"></script> 
         <!-- Custom Theme JavaScript --> 
-        <script src="./dist/js/sb-admin-2.js"></script> 
+        <script src="./js/sb-admin-2.js"></script> 
         
         <script src="./consultas/genero.js"></script> 
 
     </body>
 </html>
-
 <%}%>

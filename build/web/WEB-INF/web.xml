@@ -1,16 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
-        <servlet-name>LibroControlador</servlet-name>
-        <servlet-class>paquete.controlador.LibroControlador</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>PrestamoControlador</servlet-name>
         <servlet-class>paquete.controlador.PrestamoControlador</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>AccesoControlador</servlet-name>
-        <servlet-class>paquete.controlador.AccesoControlador</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>EditorialControlador</servlet-name>
@@ -21,36 +13,60 @@
         <servlet-class>paquete.controlador.AutorControlador</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>GeneroControlador</servlet-name>
-        <servlet-class>paquete.controlador.GeneroControlador</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>CarreraControlador</servlet-name>
         <servlet-class>paquete.controlador.CarreraControlador</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>AlumnoControlador</servlet-name>
-        <servlet-class>paquete.controlador.AlumnoControlador</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ReportePrestamoEntreFecha</servlet-name>
         <servlet-class>paquete.controlador.ReportePrestamoEntreFecha</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CategoriaControlador</servlet-name>
-        <servlet-class>paquete.controlador.CategoriaControlador</servlet-class>
+        <servlet-name>MaterialControlador</servlet-name>
+        <servlet-class>paquete.controlador.MaterialControlador</servlet-class>
     </servlet>
-    <servlet-mapping>
+    <servlet>
         <servlet-name>LibroControlador</servlet-name>
-        <url-pattern>/LibroControlador</url-pattern>
-    </servlet-mapping>
+        <servlet-class>paquete.controlador.LibroControlador</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GeneroControlador</servlet-name>
+        <servlet-class>paquete.controlador.GeneroControlador</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TipoControlador</servlet-name>
+        <servlet-class>paquete.controlador.TipoControlador</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TipoDControlador</servlet-name>
+        <servlet-class>paquete.controlador.TipoDControlador</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AlumnoControlador</servlet-name>
+        <servlet-class>paquete.controlador.AlumnoControlador</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UsuarioControlador</servlet-name>
+        <servlet-class>paquete.controlador.UserControlador</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserControlador</servlet-name>
+        <servlet-class>paquete.controlador.UserControlador</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AccesoControlador</servlet-name>
+        <servlet-class>paquete.controlador.AccesoControlador</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FacultadControlador</servlet-name>
+        <servlet-class>paquete.controlador.FacultadControlador</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DevolucionControlador</servlet-name>
+        <servlet-class>paquete.controlador.DevolucionControlador</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PrestamoControlador</servlet-name>
         <url-pattern>/PrestamoControlador</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AccesoControlador</servlet-name>
-        <url-pattern>/AccesoControlador</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>EditorialControlador</servlet-name>
@@ -61,24 +77,52 @@
         <url-pattern>/AutorControlador</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>GeneroControlador</servlet-name>
-        <url-pattern>/GeneroControlador</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>CarreraControlador</servlet-name>
         <url-pattern>/CarreraControlador</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AlumnoControlador</servlet-name>
-        <url-pattern>/AlumnoControlador</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ReportePrestamoEntreFecha</servlet-name>
         <url-pattern>/ReportePrestamoEntreFecha</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CategoriaControlador</servlet-name>
-        <url-pattern>/CategoriaControlador</url-pattern>
+        <servlet-name>MaterialControlador</servlet-name>
+        <url-pattern>/MaterialControlador</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GeneroControlador</servlet-name>
+        <url-pattern>/GeneroControlador</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TipoControlador</servlet-name>
+        <url-pattern>/TipoControlador</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TipoDControlador</servlet-name>
+        <url-pattern>/TipoDControlador</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AlumnoControlador</servlet-name>
+        <url-pattern>/AlumnoControlador</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UsuarioControlador</servlet-name>
+        <url-pattern>/UsuarioControlador</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserControlador</servlet-name>
+        <url-pattern>/UserControlador</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AccesoControlador</servlet-name>
+        <url-pattern>/AccesoControlador</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FacultadControlador</servlet-name>
+        <url-pattern>/FacultadControlador</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DevolucionControlador</servlet-name>
+        <url-pattern>/DevolucionControlador</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

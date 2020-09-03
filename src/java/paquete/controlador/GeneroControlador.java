@@ -1,4 +1,8 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package paquete.controlador;
 
 import com.google.gson.JsonObject;
@@ -21,11 +25,9 @@ public class GeneroControlador extends HttpServlet {
         super();
         generoDAO = new GeneroDAO();
     }
-
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("application/json;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             String accion="";
             accion=request.getParameter("accion");
@@ -44,7 +46,7 @@ public class GeneroControlador extends HttpServlet {
                 int id=Integer.valueOf(request.getParameter("id"));
                 out.print(generoDAO.eliminarGenero(id));
             }
-            if (accion.equalsIgnoreCase("cargarDatos")) {
+            if (accion.equalsIgnoreCase("cargarDatosGenero")) {
                 int id=Integer.valueOf(request.getParameter("id"));
                 out.print(generoDAO.cargarDatosGeneros(id));
             }

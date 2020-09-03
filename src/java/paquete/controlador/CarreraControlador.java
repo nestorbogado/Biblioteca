@@ -35,10 +35,14 @@ public class CarreraControlador extends HttpServlet {
                 es.add("datos", carreraDAO.listarTablaCarreras());
                 out.print(es);
             }
+            if (accion.equalsIgnoreCase("cargarFacultad")) {
+                out.print(carreraDAO.listarFacultad(0));
+            }
             
             if (accion.equalsIgnoreCase("insertar")) {
                 String nombre=request.getParameter("carrera");
-                out.print(carreraDAO.agregarCarrera(nombre));
+                int facultad=Integer.valueOf(request.getParameter("facultad"));
+                out.print(carreraDAO.agregarCarrera(nombre,facultad));
             }
             if (accion.equalsIgnoreCase("eliminar")) {
                 int id=Integer.valueOf(request.getParameter("id"));
@@ -51,7 +55,8 @@ public class CarreraControlador extends HttpServlet {
             if (accion.equalsIgnoreCase("actualizar")) {
                 int id=Integer.valueOf(request.getParameter("id"));
                 String nombre=request.getParameter("carrera");
-                out.print(carreraDAO.actualizarCarrera(id, nombre));
+                int facultad=Integer.valueOf(request.getParameter("facultad"));
+                out.print(carreraDAO.actualizarCarrera(id, nombre,facultad));
             }
         }
     }

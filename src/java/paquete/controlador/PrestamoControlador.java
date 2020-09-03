@@ -8,9 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import paquete.dao.AlumnosDAO;
-import paquete.dao.LibroDAO;
 import paquete.dao.PrestamoDAO;
-import paquete.modelo.Libro;
 import paquete.modelo.Prestamo;
 
 /**
@@ -20,14 +18,10 @@ import paquete.modelo.Prestamo;
 public class PrestamoControlador extends HttpServlet {
 
     private PrestamoDAO prestamoDAO;
-    private AlumnosDAO alumnoDAO;
-    private LibroDAO libroDAO;
 
     public PrestamoControlador() {
         super();
         prestamoDAO = new PrestamoDAO();
-        alumnoDAO = new AlumnosDAO();
-        libroDAO = new LibroDAO();
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -39,10 +33,17 @@ public class PrestamoControlador extends HttpServlet {
             accion = request.getParameter("accion");
 
             if (accion.equalsIgnoreCase("cargarAlumnos")) {
-                out.print(alumnoDAO.listarAlumnos());
+                out.print(prestamoDAO.ListaAlumnos(0));
             }
-            if (accion.equalsIgnoreCase("cargarLibros")) {
-                out.print(libroDAO.listarLibros());
+            if (accion.equalsIgnoreCase("cargarMaterial")) {
+                out.print(prestamoDAO.ListaLibros(0));
+            }
+            if (accion.equalsIgnoreCase("verificarFechaRenovacion")) {
+                Prestamo p = new Prestamo();
+
+                p.setId_alumno(Integer.valueOf(request.getParameter("alumno")));
+                p.setFecha_prestamo(request.getParameter("fechaPrestamo"));
+                out.print(prestamoDAO.verificarFechaRenovacion(p));
             }
 
             if (accion.equalsIgnoreCase("insertar")) {
@@ -50,41 +51,64 @@ public class PrestamoControlador extends HttpServlet {
 
                 p.setId_alumno(Integer.valueOf(request.getParameter("alumno")));
                 p.setId_libro(Integer.valueOf(request.getParameter("libro")));
-                p.setDias_prestados(Integer.valueOf(request.getParameter("cantidadDias")));
                 p.setFecha_prestamo(request.getParameter("fechaPrestamo"));
-
-                out.print(prestamoDAO.agregarPrestamo(p));
+                if (prestamoDAO.agregarPrestamo(p)>0) {
+                     out.print(prestamoDAO.actualizarEstadoMaterial(p.getId_libro(), "No Disponible"));
+                }
+               
             }
 
             if (accion.equalsIgnoreCase("eliminar")) {
                 //Guarda en una variable auxiliar los parametros que recibe
                 int id = Integer.valueOf(request.getParameter("id"));
-
-                out.print(prestamoDAO.eliminarPrestamo(id));
+                if (prestamoDAO.ActualizarEstadoDevolucionMaterial(id,"Disponible")>0) {
+                    if (prestamoDAO.eliminarPrestamo(id)>0) {
+                        out.print(1);
+                    }else{
+                       out.print(prestamoDAO.ActualizarEstadoDevolucionMaterial(id,"No Disponible"));  
+                    }
+                   
+                }else{
+                    out.print(0);
+                }
+               
             }
             if (accion.equalsIgnoreCase("cargarDatos")) {
-                //Guarda en una variable auxiliar los parametros que recibe
+//                Guarda en una variable auxiliar los parametros que recibe
                 int id = Integer.valueOf(request.getParameter("id"));
 
-                out.print(prestamoDAO.cargarDatosLibro(id));
+                out.print(prestamoDAO.cargarDatosPrestamo(id));
             }
 
-            if (accion.equalsIgnoreCase("actualizar")) {
+            if (accion.equalsIgnoreCase("actualizarPrestamo")) {
                 //Se crea una variable auxiliar l de tipo Objeto Libro.java(Modelo)
                 Prestamo p = new Prestamo();
 
                 //Guarda en el modelo los parametros que recibe
+                p.setId_libro(Integer.valueOf(request.getParameter("id_libro")));
                 p.setId_prestamo(Integer.valueOf(request.getParameter("id_prestamo")));
-                p.setFecha_devolucion(request.getParameter("fechaDevolucion"));
-                p.setDias_reales(Integer.valueOf(request.getParameter("cantidadDiasReales")));
-                p.setDiferencia(Integer.valueOf(request.getParameter("diferencia")));
-                p.setMulta(request.getParameter("multa"));
-
-                out.print(prestamoDAO.actualizarPrestamo(p));
+                p.setFecha_prestamo(request.getParameter("fechaPrestamo"));
+                if (prestamoDAO.actualizarEstadoMaterial(p.getId_libro(),"No Disponible")>0) {
+                   out.print(prestamoDAO.actualizarPrestamo(p));  
+                }else{
+                    out.print(0);
+                }
+                   
+                
             }
-            if (accion.equalsIgnoreCase("cargarTabla")) {
+            if (accion.equalsIgnoreCase("cargarTablaPENDIENTE")) {
                 JsonObject es = new JsonObject();
-                es.add("datos", prestamoDAO.listarTablaPrestamos());
+                es.add("datos", prestamoDAO.listarTablaPrestamosPendientes());
+                out.print(es);
+            }
+            if (accion.equalsIgnoreCase("cargarTablaHECHAS")) {
+                JsonObject es = new JsonObject();
+                es.add("datos", prestamoDAO.listarTablaPrestamosDevueltos());
+                out.print(es);
+            }
+            if (accion.equalsIgnoreCase("cargarTablaTODOS")) {
+                JsonObject es = new JsonObject();
+                es.add("datos", prestamoDAO.listarTablaPrestamosTodos());
                 out.print(es);
             }
         }

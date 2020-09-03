@@ -16,51 +16,51 @@ public class AutorDAO {
     public AutorDAO() {
         connection = BasedeDatos.getConnection();
     }
-    public boolean agregarAutor(String autor) {
+    public int agregarAutor(String autor) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO autores(nombre_autor) VALUES (?)");
 
             preparedStatement.setString(1, autor);
 
             if (preparedStatement.executeUpdate() > 0) {
-                return true;
+                return 1;
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return 0;
     }
     
-     public boolean eliminarAutor(int id) {
+     public int eliminarAutor(int id) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM autores WHERE id_autor=?");
 
             preparedStatement.setInt(1, id);
             if (preparedStatement.executeUpdate() > 0) {
-                return true;
+                return 1;
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return 0;
     }
      
-     public boolean actualizarAutor(int id, String autor) {
+     public int actualizarAutor(int id, String autor) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE autores SET nombre_autor=? WHERE id_autor=?");
             // Parametros  empiezan en  1
             preparedStatement.setString(1, autor);
             preparedStatement.setInt(2, id);
             if (preparedStatement.executeUpdate() > 0) {
-                return true;
+                return 1;
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return 0;
     }
      
      public JsonArray listarTablaAutores() {
@@ -77,8 +77,8 @@ public class AutorDAO {
                 //Ejemplo nombredelobjeto.addProperty("nombre con el que se guardará los datos", rs.getString("nombre de la columna de la base de datos"));
                 c.addProperty("id_autor", rs.getInt("id_autor"));
                 c.addProperty("nombre_autor", rs.getString("nombre_autor"));
-                c.addProperty("editar", "<td><button href='#!' value='" + rs.getInt("id_autor") + "' class='btn btn-success actualizar' data-toggle='modal' data-target='#editar' data-backdrop='static' data-keyboard='false'><i class='glyphicon glyphicon-edit'></i></button></td>");
-                c.addProperty("eliminar", "<td><button href='#!' value='" + rs.getInt("id_autor") + "' class='btn btn-danger eliminar'><i class='glyphicon glyphicon-remove'></i></button></td>");
+                c.addProperty("editar", "<td><button title='Editar' href='#!' value='" + rs.getInt("id_autor") + "' class='btn btn-success actualizar' data-toggle='modal' data-target='#editar' data-backdrop='static' data-keyboard='false'><i class='glyphicon glyphicon-edit'></i></button></td>");
+                c.addProperty("eliminar", "<td><button title='Eliminar' href='#!' value='" + rs.getInt("id_autor") + "' class='btn btn-danger eliminar'><i class='glyphicon glyphicon-remove'></i></button></td>");
                 
                 //Agrega el objeto a la variable lista
                 autores.add(c);
